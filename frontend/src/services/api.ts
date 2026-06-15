@@ -18,7 +18,6 @@ async function request<T>(
         Object.assign(headers, options.headers);
     }
 
-    // 4. Fazemos a requisição
     const res = await fetch(`${BASE_URL}${endpoint}`, {
         ...options,
         headers: headers,

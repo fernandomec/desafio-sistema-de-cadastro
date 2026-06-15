@@ -3,8 +3,8 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import swaggerUi from 'swagger-ui-express';
-import { swaggerDocument } from './docs/swagger';
-import authRoutes from './routes/auth.routes';
+import { swaggerDocument } from './docs/swagger.js';
+import authRoutes from './routes/auth.routes.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;

@@ -1,0 +1,55 @@
+.dashboard-container {
+    min-height: 100vh;
+    background-color: var(--fundo-pagina);
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-main {
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.dashboard-header {
+    background-color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px silver;
+}
+
+.dashboard-header h1 {
+    font-size: 1.5rem;
+    color: black;
+    margin: 0;
+}
+
+.logout-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.logout-button:hover {
+    background-color: darkred;
+}
+
+.card {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px silver;
+    width: 100%;
+    max-width: 600px;
+}
+
+.card h2 {
+    color: blue;
+    margin-bottom: 1rem;
+}

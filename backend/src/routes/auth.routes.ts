@@ -1,19 +1,36 @@
 import { Router } from 'express';
 import { register, login } from '../controllers/auth.controller';
 import { authMiddleware, roleMiddleware } from '../middlewares/auth.middleware';
+import { prisma } from '../services/prisma';
 
 const router = Router();
 
-// Rotas públicas
-router.post('/register', register);
-router.post('/login', login);
+// public routes
+router.post('/cadastrar', register);
+router.post('/entrar', login);
 
-// Exemplos de rotas protegidas
-router.get('/me', authMiddleware, (req, res) => {
-    res.json({ message: 'Você está autenticado!', user: req.user });
+// nome, email, role
+router.get('/perfil', authMiddleware, async (req, res) => {
+    try {
+        const user = await prisma.user.findUnique({
+            where: { id: req.user!.id },
+            select: { id: true, name: true, email: true, role: true },
+        });
+
+        if (!user) {
+            res.status(404).json({ message: 'Usuário não encontrado' });
+            return;
+        }
+
+        res.json({ user });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'ERRO no servidor' });
+    }
 });
 
-router.get('/admin', authMiddleware, roleMiddleware('admin'), (req, res) => {
+// rota protegida por role de admin
+router.get('/admin/painel', authMiddleware, roleMiddleware('admin'), (req, res) => {
     res.json({ message: 'Bem-vindo ao painel de admin!', user: req.user });
 });
 

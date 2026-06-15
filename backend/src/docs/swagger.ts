@@ -5,11 +5,11 @@ export const swaggerDocument = {
     info: {
         title: 'API de Autenticação e Usuários',
         version: '1.0.0',
-        description: 'Testes de Autenticação e usuários usando Node.js, Express, Prisma e JWT',
+        description: 'Autenticação e gerenciamento de usuários usando Node.js, Express, Prisma e JWT',
     },
     servers: [
         {
-            url: 'http://localhost:300',
+            url: 'http://localhost:3000',
             description: 'Porta Local',
         },
     ],
@@ -23,9 +23,9 @@ export const swaggerDocument = {
         },
     },
     paths: {
-        '/api/auth/register': {
+        '/api/auth/cadastrar': {
             post: {
-                summary: 'Registra um novo usuário',
+                summary: 'Cadastra um novo usuário',
                 tags: ['Autenticação'],
                 requestBody: {
                     required: true,
@@ -33,25 +33,26 @@ export const swaggerDocument = {
                         'application/json': {
                             schema: {
                                 type: 'object',
+                                required: ['name', 'email', 'password'],
                                 properties: {
-                                    name: { type: 'string', example: 'João da Silva' },
-                                    email: { type: 'string', example: 'joao@email.com' },
-                                    password: { type: 'string', example: '123456' },
+                                    name: { type: 'string', example: 'fernandomec' },
+                                    email: { type: 'string', example: 'admin@gmail.com' },
+                                    password: { type: 'string', example: 'admin123' },
                                 },
                             },
                         },
                     },
                 },
                 responses: {
-                    '201': { description: 'Usuário cadastrado com sucesso' },
-                    '400': { description: 'Erro de validação ou email em uso' },
-                    '500': { description: 'Erro no servidor' },
+                    '201': { description: 'Usuário CADASTRADO SUCESSO' },
+                    '400': { description: 'ERRO de validação ou e-mail já em uso' },
+                    '500': { description: 'ERRO no servidor' },
                 },
             },
         },
-        '/api/auth/login': {
+        '/api/auth/entrar': {
             post: {
-                summary: 'Faz o login do usuário',
+                summary: 'Login de usuário',
                 tags: ['Autenticação'],
                 requestBody: {
                     required: true,
@@ -59,18 +60,65 @@ export const swaggerDocument = {
                         'application/json': {
                             schema: {
                                 type: 'object',
+                                required: ['email', 'password'],
                                 properties: {
-                                    email: { type: 'string', example: 'joao@email.com' },
-                                    password: { type: 'string', example: '123456' },
+                                    email: { type: 'string', example: 'admin@gmail.com' },
+                                    password: { type: 'string', example: 'admin123' },
                                 },
                             },
                         },
                     },
                 },
                 responses: {
-                    '200': { description: 'Login bem sucedido (Retorna o Token)' },
-                    '400': { description: 'Credenciais inválidas' },
-                    '500': { description: 'Erro no servidor' },
+                    '200': { description: 'Login OK' },
+                    '400': { description: 'Dados inválidos ou usuário inativo' },
+                    '500': { description: 'ERRO no servidor' },
+                },
+            },
+        },
+        '/api/auth/perfil': {
+            get: {
+                summary: 'Retorna os dados do usuário autenticado',
+                tags: ['Usuário'],
+                security: [{ bearerAuth: [] }],
+                responses: {
+                    '200': {
+                        description: 'Dados do usuário',
+                        content: {
+                            'application/json': {
+                                schema: {
+                                    type: 'object',
+                                    properties: {
+                                        user: {
+                                            type: 'object',
+                                            properties: {
+                                                id: { type: 'string', example: 'clx0abc123' },
+                                                name: { type: 'string', example: 'fernandomec' },
+                                                email: { type: 'string', example: 'admin@gmail.com' },
+                                                role: { type: 'string', example: 'admin' },
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    '401': { description: 'Token inválido' },
+                    '404': { description: 'Usuário não encontrado' },
+                    '500': { description: 'ERRO no servidor' },
+                },
+            },
+        },
+        '/api/auth/admin/painel': {
+            get: {
+                summary: 'Acesso exclusivo para administradores',
+                tags: ['Admin'],
+                security: [{ bearerAuth: [] }],
+                responses: {
+                    '200': { description: 'Acesso OK' },
+                    '401': { description: 'Token inválido' },
+                    '403': { description: 'Acesso negado, role incorreta' },
+                    '500': { description: 'ERRO no servidor' },
                 },
             },
         },

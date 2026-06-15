@@ -1,17 +1,33 @@
+import 'dotenv/config';
 import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerDocument } from './docs/swagger';
+import authRoutes from './routes/auth.routes';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// middleware parser de json
+// middlewares
+app.use(helmet());
+app.use(cors());
 app.use(express.json());
 
-// teste de rota
+// swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+// routes
+app.use('/api/auth', authRoutes);
+
+// teste
 app.get('/', (req, res) => {
-  res.json({ message: 'teste' });
+  res.json({ message: 'TESTE' });
 });
 
-// porta do servvidor
+// PORTA
 app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}, https://localhost:${PORT}`);
+  console.log(`Servidor rodando na porta ${PORT}`);
+  console.log(`http://localhost:${PORT}`);
+  console.log(`Swagger em: http://localhost:${PORT}/api-docs`);
 });

@@ -12,7 +12,7 @@ interface Perfil {
 }
 
 export function Dashboard() {
-    const { logout, user } = useAuth();
+    const { logout } = useAuth();
     const navigate = useNavigate();
     const [perfil, setPerfil] = useState<Perfil | null>(null);
     const [carregando, setCarregando] = useState(true);

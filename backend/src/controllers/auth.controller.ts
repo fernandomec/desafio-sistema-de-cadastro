@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { z } from 'zod';
-import { prisma } from '../services/prisma';
+import { prisma } from '../services/prisma.js';
 
 // validações zod, evita um monte de if
 const registerSchema = z.object({

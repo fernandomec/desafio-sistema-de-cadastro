@@ -59,3 +59,21 @@
     text-align: center;
     border: 1px solid red;
 }
+
+.register-erro {
+    background: #fde8e8;
+    color: crimson;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.register-sucesso {
+    background: #e8fde8;
+    color: lawngreen;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}

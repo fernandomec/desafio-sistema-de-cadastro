@@ -6,6 +6,9 @@
 }
 
 .dashboard-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 2rem;
     display: flex;
     justify-content: center;
@@ -47,9 +50,45 @@
     box-shadow: 0 4px 6px silver;
     width: 100%;
     max-width: 600px;
+    margin-bottom: 2rem;
 }
 
 .card h2 {
     color: blue;
     margin-bottom: 1rem;
+}
+
+.dashboard-loading {
+    color: grey;
+    text-align: center;
+    padding: 2rem;
+}
+
+.dashboard-erro {
+    color: crimson;
+    text-align: center;
+    padding: 1rem;
+}
+
+.card-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0;
+}
+
+.card-info ul li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid white;
+    font-size: 0.95rem;
+}
+
+.card-info ul li:last-child {
+    border-bottom: none;
+}
+
+.card-info ul li span:first-child {
+    font-weight: 600;
+    color: gray;
 }
